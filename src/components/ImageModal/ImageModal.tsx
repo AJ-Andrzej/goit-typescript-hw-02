@@ -1,14 +1,23 @@
 import Modal from 'react-modal';
 import css from './ImageModal.module.css'
+import {Images} from '../App/App.types'
+import { FC } from 'react';
 Modal.setAppElement('#root');
 
-export default function ImageModal({isModalOpen, image, onCloseModal}) {
+interface ImageModalProps {
+    isModalOpen: boolean;
+    image: Pick<Images, "urls"> | null
+    onCloseModal: () => void
+}
+
+const ImageModal: FC<ImageModalProps> = ({ isModalOpen, image, onCloseModal }) => {
+    if (image === null) return
+    
     return (
         <Modal
             isOpen={isModalOpen}
             onRequestClose={onCloseModal}
             shouldCloseOnEsc={true}
-            schouldCloseOnOverlayClick={true}
             contentLabel="Example Modal"
             className={css.modal}
             overlayClassName={css.overlay}
@@ -21,3 +30,5 @@ export default function ImageModal({isModalOpen, image, onCloseModal}) {
       </Modal>
     )
 }
+
+export default ImageModal
