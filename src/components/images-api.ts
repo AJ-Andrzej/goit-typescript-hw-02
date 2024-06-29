@@ -3,12 +3,12 @@ import {Images} from './App/App.types'
 
 axios.defaults.baseURL = "https://api.unsplash.com/search/photos"
 
-interface ApiProps {
-    topic: string;
-    currentPage: number;
+interface ApiResponse {
+    results: [],
+    total_pages: number
 }
-export const getImages = async (topic:string, currentPage:  number): Promise<Images[]> => {
-    const response = await axios.get("", {
+export const getImages = async (topic:string, currentPage:  number): Promise<ApiResponse> => {
+    const {data} = await axios.get<ApiResponse>("", {
         params: {
             query: topic,
             page: currentPage,
@@ -16,7 +16,8 @@ export const getImages = async (topic:string, currentPage:  number): Promise<Ima
         }
     })
     
-    return response.data
+    return data
     
 }
+
 
