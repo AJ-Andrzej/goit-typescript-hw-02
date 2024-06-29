@@ -1,8 +1,13 @@
 import axios from 'axios'
+import {Images} from './App/App.types'
 
 axios.defaults.baseURL = "https://api.unsplash.com/search/photos"
 
-export const getImages = async (topic, currentPage) => {
+interface ApiProps {
+    topic: string;
+    currentPage: number;
+}
+export const getImages = async (topic:string, currentPage:  number): Promise<Images[]> => {
     const response = await axios.get("", {
         params: {
             query: topic,
